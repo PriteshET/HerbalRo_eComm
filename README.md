@@ -2,13 +2,6 @@
 
 ---
 
-[![GitHub stars](https://img.shields.io/github/stars/your-username/your-repo-name?style=social)](https://github.com/your-username/your-repo-name/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/your-username/your-repo-name?style=social)](https://github.com/your-username/your-repo-name/network)
-[![Issues](https://img.shields.io/github/issues/your-username/your-repo-name)](https://github.com/your-username/your-repo-name/issues)
-[![MIT License](https://img.shields.io/github/license/your-username/your-repo-name)](LICENSE)
-
----
-
 A full-stack eCommerce web application built using the MERN stack (MongoDB, Express.js, React, Node.js), with **Vite** for lightning-fast frontend development. Features include **User authentication with JWT**, **bcrypt-secured login**, and **Admin dashboard** for managing website.
 
 ---
@@ -77,4 +70,4 @@ JWT_SECRET=your_jwt_secret
 --- 
 
 ## Author
-- [@PriteshET] (https://github.com/PriteshET)
+- [@PriteshET](https://github.com/PriteshET)
