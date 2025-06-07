@@ -1,0 +1,40 @@
+.shop-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), 
+    url('../../assets/shopbg.jpg') no-repeat center center;
+  background-size: cover;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+
+.shop-content {
+  background-color: #2b3020;
+  width: 750px;
+  height: 150px;
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  position: relative;
+}
+
+
+.shop-container button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #2b3020;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.shop-container button:hover {
+  background-color: #e0e9d2;
+}

@@ -1,0 +1,41 @@
+.products {
+    color: auto;
+    padding-top: 100px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.product {
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    /* width: 100%;
+    max-width: 1000px; */
+    gap: 20px;
+    
+}
+.text{
+    width: 500px;
+
+}
+.product img {
+    width: 500px;
+    height: 300px;
+    display: block;
+    border-radius: 10px;
+    transition:1s;
+}
+/* Alternate layout for even-numbered products */
+.product:nth-child(even) {
+    flex-direction: row-reverse;
+}
+.product img:hover {
+    /* width: 525px;
+    height: 325px; */
+
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,129 @@
+.admin-layout {
+  display: flex;
+  background-color: #fdf6e3; /* soft beige */
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Sidebar (fixed) */
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 16rem;
+  background-color: #93a180; /* soft olive */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+/* Header section of the sidebar */
+.admin-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #c9d2b3;
+  background-color: #1f3521; /* dark green */
+}
+
+.admin-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fdf6e3; /* beige */
+}
+
+.admin-subtitle {
+  font-size: 0.875rem;
+  color: #c4d0b4; /* muted olive */
+  margin-top: 0.5rem;
+}
+
+.admin-nav {
+  width: 16rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 7rem;
+}
+
+.nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.nav-item-inactive {
+  color: #e3e3d8;
+}
+
+.nav-item-inactive:hover {
+  background-color: #dfe9cd;
+  color: #1f3521;
+}
+
+.nav-item-active {
+  background-color: #e7d88f;
+  color: #1f3521;
+  font-weight: 600;
+  border-right: 3px solid #1f3521;
+}
+
+.nav-icon {
+  margin-right: 0.75rem;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+/* Logout Button */
+.logout-container {
+  margin: auto 1.5rem 1.5rem;
+}
+
+.logout-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a94444;
+  background-color: #fbd2d2;
+  border: 1px solid #f5b5b5;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+}
+
+.logout-button:hover {
+  background-color: #ee9a9a;
+  cursor: pointer;
+}
+
+.logout-icon {
+  margin-right: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+/* Main Content Area */
+.admin-main {
+  margin-left: 16rem;
+  flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 2rem;
+  background-color: #fdf6e3;
+}
+
+.admin-content {
+  padding: 1.5rem;
+  min-height: calc(100vh - 4rem);
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border: 1px solid #e2e2d2;
+}

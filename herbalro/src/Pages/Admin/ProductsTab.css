@@ -1,0 +1,243 @@
+.products-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.products-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.products-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.products-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.products-count {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.count-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: #2563eb;
+}
+
+.count-text {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.add-button {
+  background-color: #059669;
+  display: flex;
+  align-items: center;
+}
+
+.add-button:hover {
+  background-color: #047857;
+}
+
+.add-icon {
+  margin-right: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+.add-dialog {
+  max-width: 28rem;
+}
+
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.price-size-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.add-product-btn {
+  background-color: #059669;
+}
+
+.add-product-btn:hover {
+  background-color: #047857;
+}
+
+.edit-card {
+  border-color: #bfdbfe;
+  background-color: #dbeafe;
+}
+
+.edit-title {
+  color: #1e40af;
+}
+
+.edit-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.edit-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .edit-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.edit-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.save-button {
+  background-color: #2563eb;
+}
+
+.save-button:hover {
+  background-color: #1d4ed8;
+}
+
+.table-container {
+  padding: 0;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.products-table {
+  width: 100%;
+}
+
+.table-header {
+  background-color: #f9fafb;
+}
+
+.table-th {
+  padding: 0.75rem 1.5rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table-body {
+  background-color: white;
+  border-top: 1px solid #e5e7eb;
+}
+
+.table-row:hover {
+  background-color: #f9fafb;
+}
+
+.table-td {
+  padding: 1rem 1.5rem;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  color: #111827;
+}
+
+.product-name {
+  font-weight: 500;
+  color: #111827;
+}
+
+.product-description {
+  color: #6b7280;
+}
+
+.stock-badge {
+  display: inline-flex;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 9999px;
+}
+
+.stock-high {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.stock-medium {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.stock-low {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.edit-btn {
+  display: flex;
+  align-items: center;
+}
+
+.edit-icon {
+  margin-right: 0.25rem;
+  height: 0.75rem;
+  width: 0.75rem;
+}
+.edit-card TextArea{
+    padding-left: 0.5rem;
+    padding-top: 0.2rem;
+}
+.edit-card Label{
+    margin-bottom: 5px;
+}
+
+/* Dialog box styling */
+.add-dialog {
+  position: fixed !important;
+  top: 80% !important;
+  left: 75% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 9999;
+  width: 90%;
+  max-width: 500px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+.add-dialog Input,TextArea{
+    padding-left: 0.5rem;
+    margin-top: 5px;
+}
+.products-tab Button{
+    cursor: pointer;
+}
+.add-dialog Button{
+    cursor: pointer;
+}
