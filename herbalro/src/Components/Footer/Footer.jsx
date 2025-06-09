@@ -35,8 +35,8 @@ const Footer = () => {
           <h3>Your Account</h3>
             <ul>
               <li><RouterLink to='/login'>Login</RouterLink></li>
-              <li>Orders</li>
-              <li>Your Cart</li>
+              <li><RouterLink to='/login'>Orders</RouterLink></li>
+              <li><RouterLink to='/login'>Your Cart</RouterLink></li>
             </ul>
         </div>
         <div className="section">
@@ -46,13 +46,8 @@ const Footer = () => {
               <li><img src={mobile}/>+91 9876543210</li>
               <li><img src={mail}/>herbalro123@gmail.com</li>
             </ul>
-          <h3>Follow Us</h3>
-              <div className="follow">
-                <img src={insta}/>
-                <img src={face}/>
-                <img src={twitter}/>
-              </div>
         </div>
+        
         <div className="section">
           <h3>We Are Also Available On:</h3>
             <ul>
@@ -61,6 +56,15 @@ const Footer = () => {
               <li><img src={flipkart}/><a href='https://www.flipkart.com/health-care/health-supplements/vitamin-supplement/kapiva~brand/pr?sid=hlc,etg,qtw&marketplace=FLIPKART&otracker=product_breadCrumbs_Kapiva+Vitamin+Supplement'
                 target='_blank'>Flipkart.com</a></li>
             </ul>
+        </div>
+        <div className="section" id='follow'>
+          <h3>Follow Us</h3>
+          <ul>
+            <li><img src={insta}/></li>
+            <li><img src={face}/></li>
+            <li><img src={twitter}/></li>
+            </ul>
+              
         </div>
       </div>
       <div className="footer2">

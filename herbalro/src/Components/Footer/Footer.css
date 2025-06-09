@@ -19,6 +19,8 @@
 }
 .section ul{
     margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
 }
 .section li{
     margin: 10px 0 5px;

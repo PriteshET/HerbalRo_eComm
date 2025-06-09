@@ -198,6 +198,14 @@ app.post('/login', (req, res) => {
     });
 });
 
+
+app.post('/logout', (req, res) => {
+  res.clearCookie("token");
+  res.json({ success: true, message: "Logged out" });
+});
+
+
+
 app.listen(3001, () => {
     console.log("Server is Running...")
 })

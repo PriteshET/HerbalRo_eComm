@@ -3,7 +3,8 @@ import { Card } from "@/components/ui/card";
 import { User, Package, ShoppingCart, LogOut, Store, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
 import "./AdminLayout.css";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AdminLayout = () => {
   const navItems = [
@@ -14,9 +15,14 @@ const AdminLayout = () => {
   { path: "/admin/feedback", label: "Feedback", icon: MessageSquare },
 ];
 
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     console.log("Logging out...");
-    // Add logout functionality here
+    axios.post("http://localhost:3001/logout", {}, { withCredentials: true }).then(() => {
+    navigate("/login");
+});
+
   };
 
   return (
