@@ -15,10 +15,13 @@ export const Login = () => {
         axios.post('http://localhost:3001/login', { email, password }, { withCredentials: true })
             .then(res => {
             if (res.data.message === "Success") {
-                if (res.data.role === "admin") {
-                window.location.href = "/admin"; // Redirect to admin panel
-                } else {
-                window.location.href = "/"; // Or user dashboard
+                if (response.data.role === "admin") {
+                    navigate("/admin");
+                } else if (response.data.role === "moderator") {
+                    navigate("/admin/orders");
+                }
+                else {
+                    window.location.href = "/"; // Or user dashboard
                 }
             } else {
                 toast.error(res.data.message);

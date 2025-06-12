@@ -138,6 +138,20 @@ const handleDelete = (id) => {
                       autoComplete= "off"
                     />
                   </div>
+                  <div>
+                    <Label htmlFor="role">Role</Label>
+                    <Select value={formData.role} onValueChange={(value) => setFormData({ ...formData, role: value })}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="user">User</SelectItem>
+                        <SelectItem value="moderator">Moderator</SelectItem>
+                        <SelectItem value="admin">Admin</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    
+                  </div>
                   <div className="dialog-actions">
                     <Button onClick={handleAddUser} className="add-admin-btn">
                       Add Admin
@@ -178,7 +192,7 @@ const handleDelete = (id) => {
                       <AlertDialog >
                         <AlertDialogTrigger asChild>
                           <Button
-                            onClick={() => handleDelete(user._id)}
+                            
                             size="sm"
                             variant="outline"
                             className="delete-btn"
@@ -196,7 +210,7 @@ const handleDelete = (id) => {
                           </AlertDialogHeader>
                           <AlertDialogFooter>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+                            <AlertDialogAction onClick={() => handleDelete(user._id)}>Continue</AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>

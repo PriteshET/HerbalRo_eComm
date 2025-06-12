@@ -54,6 +54,27 @@ const verifyAdmin = (req, res, next) => {
   }
 };
 
+
+const verifyModeratorOrAdmin = (req, res, next) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(403).json({ success: false, message: 'Access Denied: No token provided' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, "jwt-secretKey");
+    if (decoded.role !== "admin" && decoded.role !== "moderator") {
+      return res.status(403).json({ success: false, message: 'Access Denied: Not authorized' });
+    }
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ success: false, message: 'Invalid or expired token' });
+  }
+};
+
+
 app.get('/',verifyUser, (req,res) =>{
     return res.json("Success")
 })
@@ -86,7 +107,7 @@ app.get('/admin/feedback',verifyAdmin, (req, res) => {
         });
 });
 
-app.get('/admin/shop',verifyAdmin, (req, res) => {
+app.get('/admin/shop',verifyModeratorOrAdmin, (req, res) => {
     FeedbackModel2.find()
     .then(data => {
       res.status(200).json({ success: true, data });
@@ -108,7 +129,7 @@ app.get('/admin/products' ,verifyAdmin, (req, res) => {
     });
 });
 
-app.get('/admin/orders' ,verifyAdmin, (req, res) => {
+app.get('/admin/orders' ,verifyModeratorOrAdmin, (req, res) => {
     FeedbackModel2.find()
     .then(data => {
       res.status(200).json({ success: true, data });

@@ -235,3 +235,6 @@ button:hover {
     padding-left: 0.5rem;
     margin-top: 5px;
 }
+.admin-mod{
+  z-index: 9999;
+}
