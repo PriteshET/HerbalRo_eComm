@@ -238,3 +238,6 @@ button:hover {
 .admin-mod{
   z-index: 9999;
 }
+#select{
+  padding: 5px;
+}

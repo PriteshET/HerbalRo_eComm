@@ -24,7 +24,7 @@ const FeedbackTab = () => {
         console.error('Error fetching feedback:', error);
       });
 
-      axios.get("http://localhost:3001/verify", { withCredentials: true })
+      axios.get("http://localhost:3001/admin", { withCredentials: true })
         .then(res => {
           if (!res.data.success) {
             toast.error("Unauthorized. Redirecting...");

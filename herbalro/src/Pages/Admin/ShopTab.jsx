@@ -16,7 +16,7 @@ const ShopTab = () => {
   const navigate = useNavigate();
 
   useEffect(() =>{
-    axios.get("http://localhost:3001/verify", { withCredentials: true })
+    axios.get("http://localhost:3001/admin", { withCredentials: true })
         .then(res => {
           if (!res.data.success) {
             toast.error("Unauthorized. Redirecting...");

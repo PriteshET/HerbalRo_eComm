@@ -15,9 +15,9 @@ export const Login = () => {
         axios.post('http://localhost:3001/login', { email, password }, { withCredentials: true })
             .then(res => {
             if (res.data.message === "Success") {
-                if (response.data.role === "admin") {
+                if (res.data.role === "admin") {
                     navigate("/admin");
-                } else if (response.data.role === "moderator") {
+                } else if (res.data.role === "moderator") {
                     navigate("/admin/orders");
                 }
                 else {

@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Edit, Package, PackagePlus } from "lucide-react";
+import { Edit, Package, PackagePlus, Upload, X } from "lucide-react";
 import "./ProductsTab.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -16,7 +16,7 @@ const ProductsTab = () => {
   const navigate = useNavigate();
 
   useEffect(() =>{
-    axios.get("http://localhost:3001/verify", { withCredentials: true })
+    axios.get("http://localhost:3001/admin", { withCredentials: true })
         .then(res => {
           if (!res.data.success) {
             toast.error("Unauthorized. Redirecting...");
@@ -27,14 +27,19 @@ const ProductsTab = () => {
           toast.error("Access denied.");
           navigate('/login');
         });
+    axios.get('http://localhost:3001/admin/products', { withCredentials: true })
+      .then(response => {
+        if (response.data.success) {
+          setProducts(response.data.data);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching feedback:', error);
+      });
   },[])
 
 
-  const [products, setProducts] = useState([
-    { id: "1", name: "Classic T-Shirt", price: 29.99, size: "M", description: "Comfortable cotton t-shirt", stock: 50 },
-    { id: "2", name: "Denim Jeans", price: 79.99, size: "32", description: "Premium denim jeans", stock: 25 },
-    { id: "3", name: "Sneakers", price: 129.99, size: "9", description: "Athletic sneakers", stock: 15 },
-  ]);
+  const [products, setProducts] = useState([]);
 
   const [editingProduct, setEditingProduct] = useState(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -43,7 +48,8 @@ const ProductsTab = () => {
     price: 0, 
     size: "", 
     description: "", 
-    stock: 0 
+    stock: 0,
+    images:[]
   });
 
   const handleEdit = (product) => {
@@ -53,7 +59,8 @@ const ProductsTab = () => {
       price: product.price, 
       size: product.size, 
       description: product.description, 
-      stock: product.stock 
+      stock: product.stock,
+      images: product.images || []
     });
   };
 
@@ -69,18 +76,26 @@ const ProductsTab = () => {
     }
   };
 
-  const handleAddProduct = () => {
-    const newProduct = {
-      id: Date.now().toString(),
-      ...formData
-    };
+  const handleAddProduct = (e) => {
+    e.preventDefault();
+    axios
+      .post('http://localhost:3001/admin/products', {setFormData})
+      .then((result) => {
+        console.log(result);
+        toast.success('Product added Successfully');
+        setFormDisabled(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error('Something went wrong. Please try again later.');
+      });
     setProducts([...products, newProduct]);
     setIsAddDialogOpen(false);
     resetForm();
   };
 
   const resetForm = () => {
-    setFormData({ name: "", price: 0, size: "", description: "", stock: 0 });
+    setFormData({ name: "", price: 0, size: "", description: "", stock: 0, images: [] });
   };
 
   const handleCancel = () => {
@@ -88,6 +103,70 @@ const ProductsTab = () => {
     resetForm();
   };
 
+
+  const handleImageUpload = (event) => {
+    const files = Array.from(event.target.files);
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setFormData(prev => ({
+          ...prev,
+          images: [...prev.images, e.target.result]
+        }));
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const removeImage = (indexToRemove) => {
+    setFormData(prev => ({
+      ...prev,
+      images: prev.images.filter((_, index) => index !== indexToRemove)
+    }));
+  };
+
+  const truncateDescription = (text, maxWords = 5) => {
+    const words = text.split(' ');
+    if (words.length <= maxWords) return text;
+    return words.slice(0, maxWords).join(' ') + '...';
+  };
+
+  const ImageUploadSection = () => (
+    <div className="image-upload-section">
+      <Label>Product Images</Label>
+      <div className="image-upload-container">
+        <div className="image-grid">
+          {formData.images.map((image, index) => (
+            <div key={index} className="image-preview">
+              <img src={image} alt={`Product ${index + 1}`} className="preview-image" />
+              <button
+                type="button"
+                onClick={() => removeImage(index)}
+                className="remove-image-btn"
+              >
+              <X className="remove-icon" />
+              </button>
+            </div>
+          ))}
+        </div>
+        <div className="upload-area">
+          <Input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageUpload}
+            className="file-input"
+            id="image-upload"
+          />
+          <Label htmlFor="image-upload" className="upload-label">
+            <Upload className="upload-icon" />
+            Upload Images
+          </Label>
+        </div>
+      </div>
+    </div>
+  );
+  
   return (
     <div className="products-tab">
       <ToastContainer/>
@@ -100,7 +179,7 @@ const ProductsTab = () => {
           </div>
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="add-button">
+              <Button className="add-button" onClick={() => {setEditingProduct(false); resetForm();}}>
                 <PackagePlus className="add-icon" />
                 Add Product
               </Button>
@@ -161,6 +240,7 @@ const ProductsTab = () => {
                     rows={3}
                   />
                 </div>
+                <ImageUploadSection />
                 <div className="dialog-actions">
                   <Button onClick={handleAddProduct} className="add-product-btn">
                     Add Product
@@ -232,6 +312,7 @@ const ProductsTab = () => {
                 rows={3}
               />
             </div>
+            <ImageUploadSection />
             <div className="edit-actions">
               <Button onClick={handleSave} className="save-button">
                 Save Changes
@@ -259,15 +340,15 @@ const ProductsTab = () => {
               </thead>
               <tbody className="table-body">
                 {products.map((product) => (
-                  <tr key={product.id} className="table-row">
+                  <tr key={product._id} className="table-row">
                     <td className="table-td">
                       <div>
                         <div className="product-name">{product.name}</div>
-                        <div className="product-description">{product.description}</div>
+                        <div className="product-description">{truncateDescription(product.description)}</div>
                       </div>
                     </td>
-                    <td className="table-td">${product.price.toFixed(2)}</td>
-                    <td className="table-td">{product.size}</td>
+                    <td className="table-td"> &#8377; {product.price.toFixed(2)}</td>
+                    <td className="table-td">{product.size} mg</td>
                     <td className="table-td">
                       <span className={`stock-badge ${
                         product.stock > 20 ? 'stock-high' :

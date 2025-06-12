@@ -17,6 +17,7 @@ const UsersTab = () => {
   const [users, setUsers] = useState([]);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
 
   const navigate = useNavigate();
 
@@ -73,7 +74,7 @@ const handleDelete = (id) => {
 
   const handleAddUser = () => {
   axios
-    .put("http://localhost:3001/admin", { email: email })
+    .put("http://localhost:3001/admin", { email: email, role: role })
     .then((response) => {
       if (response.data.success) {
         toast.success("User promoted to Admin!");
@@ -81,7 +82,7 @@ const handleDelete = (id) => {
         // Update UI if needed
         setUsers((prev) =>
           prev.map((user) =>
-            user.email === email ? { ...user, role: "admin" } : user
+            user.email === email ? { ...user, role: role} : user
           )
         );
       } else {
@@ -140,12 +141,11 @@ const handleDelete = (id) => {
                   </div>
                   <div>
                     <Label htmlFor="role">Role</Label>
-                    <Select value={formData.role} onValueChange={(value) => setFormData({ ...formData, role: value })}>
+                    <Select onValueChange={(value) => setRole(value)}>
                       <SelectTrigger>
-                        <SelectValue />
+                        <SelectValue placeholder="Select a role"/>
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="user">User</SelectItem>
+                      <SelectContent className="z-[9999]" id="select">
                         <SelectItem value="moderator">Moderator</SelectItem>
                         <SelectItem value="admin">Admin</SelectItem>
                       </SelectContent>

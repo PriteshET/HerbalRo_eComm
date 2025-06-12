@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const { default: mongoose } = require('mongoose')
-const {FeedbackModel,FeedbackModel2} = require('./Schemas/Feedback')
+const {FeedbackModel,FeedbackModel2, ProductsData} = require('./Schemas/Feedback')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser') 
@@ -15,7 +15,7 @@ app.use(cors({
 }))
 app.use(cookieParser())
 
-mongoose.connect("mongodb://localhost:27017/Feedback")
+mongoose.connect("mongodb://localhost:27017/Herbalro")
 
 const verifyUser = (req,res,next) => {
     const token = req.cookies.token;
@@ -119,7 +119,7 @@ app.get('/admin/shop',verifyModeratorOrAdmin, (req, res) => {
 });
 
 app.get('/admin/products' ,verifyAdmin, (req, res) => {
-    FeedbackModel2.find()
+    ProductsData.find()
     .then(data => {
       res.status(200).json({ success: true, data });
     })
@@ -128,6 +128,12 @@ app.get('/admin/products' ,verifyAdmin, (req, res) => {
       res.status(500).json({ success: false, message: "Failed to fetch shop data" });
     });
 });
+
+app.post('/admin/products', (req,res) => {
+    ProductsData.create(req.body)
+    .then(Data => res.json(Data))
+    .catch(err => res.json(err))
+})
 
 app.get('/admin/orders' ,verifyModeratorOrAdmin, (req, res) => {
     FeedbackModel2.find()
@@ -141,7 +147,7 @@ app.get('/admin/orders' ,verifyModeratorOrAdmin, (req, res) => {
 });
 
 app.get('/admin',verifyAdmin, (req,res) =>{
-    FeedbackModel2.find({role:"admin"})
+    FeedbackModel2.find({role: { $in: ["admin", "moderator"] }  })
     .then(admins => {
         res.status(200).json({ success: true, data: admins })
     })
@@ -151,18 +157,22 @@ app.get('/admin',verifyAdmin, (req,res) =>{
     })
 });
 
-app.get('/verify', verifyAdmin, (req, res) => {
+app.get('/verify', verifyModeratorOrAdmin, (req, res) => {
   res.json({ success: true, user: req.user });
 });
 
 
 // PUT: Promote user to admin via email
 app.put('/admin', (req, res) => {
-  const { email } = req.body;
+  const { email, role } = req.body; // ✅ Extract both email and role
+
+  if (!email || !role) {
+    return res.status(400).json({ success: false, message: "Email and role are required" });
+  }
 
   FeedbackModel2.findOneAndUpdate(
-    { email },
-    { role: "admin" },
+    { email: email },
+    { role: role },
     { new: true }
   )
     .then(updatedUser => {

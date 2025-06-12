@@ -32,11 +32,38 @@ const FeedbackLogin = new mongoose.Schema({
     role: { type: String, default: "user" } // or "admin" 
 })
 
+const ProductsSchema = new mongoose.Schema({
+    name: String,
+
+    price: {
+        type: Number,
+        min:1,
+    },
+
+    size: {
+        type: Number,
+        min:1,
+    },
+
+    description: String,
+
+    stock: {
+        type: Number,
+        min:0,
+    },
+
+    images: {
+        data: Buffer,
+        contentType: String
+    }
+});
 
 const FeedbackModel = mongoose.model("Feedback", FeedbackSchema)
 const FeedbackModel2 = mongoose.model("Login",FeedbackLogin)
+const ProductsData = mongoose.model("Products", ProductsSchema)
 
 module.exports = {
     FeedbackModel,
-    FeedbackModel2
+    FeedbackModel2,
+    ProductsData
 };
