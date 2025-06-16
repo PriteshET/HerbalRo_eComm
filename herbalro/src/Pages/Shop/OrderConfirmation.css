@@ -1,0 +1,228 @@
+.order-confirmation {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: calc(var(--spacing) * 4) calc(var(--spacing) * 2);
+  text-align: center;
+}
+
+.confirmation-content {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 4);
+}
+
+.success-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: calc(var(--spacing) * 2);
+}
+
+.order-confirmation h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--success-color);
+  margin-bottom: calc(var(--spacing) * 2);
+}
+
+.confirmation-message {
+  font-size: 18px;
+  color: var(--gray-600);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.order-details,
+.order-items {
+  text-align: left;
+  padding: calc(var(--spacing) * 4);
+}
+
+.order-details h2,
+.order-items h3 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: calc(var(--spacing) * 3);
+  text-align: center;
+}
+
+.order-number {
+  text-align: center;
+  padding: calc(var(--spacing) * 2);
+  background-color: var(--gray-50);
+  border-radius: calc(var(--spacing) * 1);
+  margin-bottom: calc(var(--spacing) * 3);
+}
+
+.order-number strong {
+  font-size: 18px;
+  color: var(--primary-color);
+}
+
+.customer-info h3 {
+  font-size: 18px;
+  margin-bottom: calc(var(--spacing) * 2);
+  color: var(--gray-800);
+}
+
+.customer-info p {
+  color: var(--gray-600);
+  margin-bottom: calc(var(--spacing) * 1);
+  line-height: 1.4;
+}
+
+.items-list {
+  margin-bottom: calc(var(--spacing) * 3);
+}
+
+.order-item {
+  display: flex;
+  gap: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 2);
+  border-bottom: 1px solid var(--gray-200);
+  align-items: center;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: calc(var(--spacing) * 1);
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-details h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: calc(var(--spacing) * 1);
+}
+
+.item-details p {
+  color: var(--gray-600);
+  margin-bottom: calc(var(--spacing) * 0.5);
+}
+
+.item-price {
+  font-weight: 600;
+  color: var(--primary-color) !important;
+}
+
+.order-total {
+  border-top: 2px solid var(--gray-200);
+  padding-top: calc(var(--spacing) * 2);
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  padding: calc(var(--spacing) * 1) 0;
+}
+
+.final-total {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--gray-900);
+  border-top: 1px solid var(--gray-200);
+  margin-top: calc(var(--spacing) * 1);
+  padding-top: calc(var(--spacing) * 2);
+}
+
+.confirmation-actions {
+  display: flex;
+  gap: calc(var(--spacing) * 2);
+  justify-content: center;
+}
+
+.next-steps {
+  background-color: var(--gray-50);
+  padding: calc(var(--spacing) * 4);
+  border-radius: calc(var(--spacing) * 2);
+  text-align: left;
+}
+
+.next-steps h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: calc(var(--spacing) * 2);
+  text-align: center;
+}
+
+.next-steps ul {
+  list-style: none;
+  padding: 0;
+}
+
+.next-steps li {
+  color: var(--gray-600);
+  padding: calc(var(--spacing) * 1) 0;
+  position: relative;
+  padding-left: calc(var(--spacing) * 3);
+}
+
+.next-steps li:before {
+  content: '•';
+  color: var(--primary-color);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+@media (max-width: 768px) {
+  .order-confirmation {
+    padding: calc(var(--spacing) * 2);
+  }
+  
+  .order-confirmation h1 {
+    font-size: 28px;
+  }
+  
+  .confirmation-message {
+    font-size: 16px;
+  }
+  
+  .order-details,
+  .order-items {
+    padding: calc(var(--spacing) * 3);
+  }
+  
+  .confirmation-actions {
+    flex-direction: column;
+  }
+  
+  .order-item {
+    flex-direction: column;
+    text-align: center;
+    gap: calc(var(--spacing) * 2);
+  }
+  
+  .item-details {
+    text-align: center;
+  }
+}
+
+@media print {
+  .confirmation-actions {
+    display: none;
+  }
+  
+  .order-confirmation {
+    max-width: none;
+    padding: 0;
+  }
+  
+  .card {
+    box-shadow: none;
+    border: 1px solid var(--gray-200);
+  }
+}
+

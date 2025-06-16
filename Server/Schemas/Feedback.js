@@ -52,10 +52,7 @@ const ProductsSchema = new mongoose.Schema({
         min:0,
     },
 
-    images: {
-        data: Buffer,
-        contentType: String
-    }
+    images: [String],
 });
 
 const FeedbackModel = mongoose.model("Feedback", FeedbackSchema)

@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 const FeedbackTab = () => {
-  // Mock data - replace with actual API call to your MongoDB via Supabase
   const [feedbacks, setFeedbacks] = useState([]);
   const navigate = useNavigate();
 

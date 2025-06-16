@@ -35,8 +35,8 @@ const Footer = () => {
           <h3>Your Account</h3>
             <ul>
               <li><RouterLink to='/login'>Login</RouterLink></li>
-              <li><RouterLink to='/login'>Orders</RouterLink></li>
-              <li><RouterLink to='/login'>Your Cart</RouterLink></li>
+              <li><RouterLink to='/shop'>Orders</RouterLink></li>
+              <li><RouterLink to='/shop/cart'>Your Cart</RouterLink></li>
             </ul>
         </div>
         <div className="section">

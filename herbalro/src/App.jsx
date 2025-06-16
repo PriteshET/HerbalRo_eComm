@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Router } from 'react-router-dom';
 
 import Nav from './Components/NavBar/Nav';
 import { Hero } from './Components/Hero/Hero';
@@ -18,6 +18,13 @@ import OrdersTab from './Pages/Admin/OrdersTab';
 import ShopTab from './Pages/Admin/ShopTab';
 import FeedbackTab from './Pages/Admin/FeedbackTab';
 import UsersTab from './Pages/Admin/UsersTab';
+import ProductList from './Pages/Shop/ProductList';
+import ProductDetail from './Pages/Shop/ProductDetail';
+import Cart from './Pages/Shop/Cart';
+import Checkout from './Pages/Shop/Checkout';
+import OrderConfirmation from './Pages/Shop/OrderConfirmation';
+import { CartProvider } from './context/CardContext';
+import Header from './Pages/Shop/Header';
 
 const Home = () => (
   <>
@@ -32,12 +39,13 @@ const Home = () => (
   </>
 );
 
+
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/shop' element={<Shop />} />
+        <Route path='/shop/*' element={<Shop />} />
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/login' element={<Login/>}/>
 

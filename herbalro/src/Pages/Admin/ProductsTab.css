@@ -1,7 +1,10 @@
 .image-upload-section {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
+}
+.image-upload-input{
+  cursor: pointer;
 }
 
 .image-upload-container {
@@ -264,6 +267,7 @@
   white-space: nowrap;
   font-size: 0.875rem;
   color: #111827;
+  vertical-align: middle;
 }
 
 .product-name {
@@ -319,7 +323,7 @@
 /* Dialog box styling */
 .add-dialog {
   position: fixed !important;
-  top: 95% !important;
+  top: 90% !important;
   left: 75% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 9999;
@@ -339,4 +343,12 @@
 }
 .add-dialog Button{
     cursor: pointer;
+}
+
+#double-action{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  vertical-align: middle;
+  margin-top: 20px;
 }

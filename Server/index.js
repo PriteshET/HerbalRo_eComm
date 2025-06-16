@@ -5,6 +5,21 @@ const {FeedbackModel,FeedbackModel2, ProductsData} = require('./Schemas/Feedback
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser') 
+const multer = require('multer');
+
+// Store in /uploads/products
+const storage = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb(null,'uploads/products')
+  },
+  filename : function(req,file,cb){
+    const ext = file.originalname.substr(file.originalname.lastIndexOf('.'));
+
+    cb(null, file.fieldname+"-"+Date.now()+ext)
+  }
+});
+const upload = multer({ storage: storage });
+
 
 const app = express()
 app.use(express.json())
@@ -14,6 +29,8 @@ app.use(cors({
     credentials: true
 }))
 app.use(cookieParser())
+
+app.use('/uploads', express.static('uploads'));
 
 mongoose.connect("mongodb://localhost:27017/Herbalro")
 
@@ -129,11 +146,45 @@ app.get('/admin/products' ,verifyAdmin, (req, res) => {
     });
 });
 
-app.post('/admin/products', (req,res) => {
-    ProductsData.create(req.body)
-    .then(Data => res.json(Data))
-    .catch(err => res.json(err))
-})
+app.post("/admin/products", upload.array("images"), async (req, res) => {
+  try {
+    const { name, price, size, description, stock } = req.body;
+
+    const imagePaths = req.files.map(file => `/uploads/products/${file.filename}`);
+
+    // Ensure files exist
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ message: "No files uploaded" });
+    }
+
+    const product = await ProductsData.create({
+      name,
+      price,
+      size,
+      description,
+      stock,
+      images: imagePaths, 
+    });
+
+    res.status(201).json({ success: true, data: product });
+  } catch (err) {
+    console.error("Upload Error:", err);
+    res.status(500).json({ success: false, message: "Failed to save product" });
+  }
+});
+
+// Delete admin by ID
+app.delete('/admin/products/:id', (req, res) => {
+  const id = req.params.id;
+
+  ProductsData.findByIdAndDelete(id)
+    .then(() => res.status(200).json({ success: true, message: "Product deleted successfully" }))
+    .catch(err => {
+      console.error("Error deleting admin:", err);
+      res.status(500).json({ success: false, message: "Failed to delete product" });
+    });
+});
+
 
 app.get('/admin/orders' ,verifyModeratorOrAdmin, (req, res) => {
     FeedbackModel2.find()
@@ -234,6 +285,34 @@ app.post('/logout', (req, res) => {
   res.clearCookie("token");
   res.json({ success: true, message: "Logged out" });
 });
+
+
+/// Shop Logicssss
+
+app.get('/shop/products', (req, res) => {
+  ProductsData.find()
+    .then(products => res.json(products))
+    .catch(err => {
+      console.error("Failed to fetch products:", err);
+      res.status(500).json({ message: "Server Error" });
+    });
+});
+
+app.get('/shop/product/:id', (req, res) => {
+  const { id } = req.params;
+  ProductsData.findById(id)
+    .then(product => {
+      if (!product) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+      res.json(product);
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      res.status(500).json({ message: 'Server error' });
+    });
+});
+
 
 
 

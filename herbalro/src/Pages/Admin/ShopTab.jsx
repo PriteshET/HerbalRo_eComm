@@ -10,7 +10,7 @@ import axios from "axios";
 const ShopTab = () => {
   const handleGoToShop = () => {
     // This would typically navigate to the main e-commerce site
-    window.open("/", "_blank");
+    window.open("/shop", "_blank");
   };
 
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ const ShopTab = () => {
         <h2 className="shop-title">Shop Overview</h2>
         <Button 
           onClick={handleGoToShop}
-          className="visit-shop-btn"
+          className="visit-shop-butn"
           size="lg"
         >
           <ExternalLink className="visit-icon" />
@@ -119,14 +119,14 @@ const ShopTab = () => {
               <Button 
                 onClick={handleGoToShop}
                 variant="outline" 
-                className="action-btn"
+                className="action-butn"
               >
                 <ExternalLink className="action-icon" />
                 Visit Main Store
               </Button>
               <Button 
                 variant="outline" 
-                className="action-btn"
+                className="action-butn"
                 onClick={() => console.log("View analytics")}
               >
                 <TrendingUp className="action-icon" />
@@ -134,7 +134,7 @@ const ShopTab = () => {
               </Button>
               <Button 
                 variant="outline" 
-                className="action-btn"
+                className="action-butn"
                 onClick={() => console.log("Manage inventory")}
               >
                 <Package className="action-icon" />
@@ -142,7 +142,7 @@ const ShopTab = () => {
               </Button>
               <Button 
                 variant="outline" 
-                className="action-btn"
+                className="action-butn"
                 onClick={() => console.log("Customer support")}
               >
                 <Users className="action-icon" />

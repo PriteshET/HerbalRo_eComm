@@ -5,11 +5,12 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Edit, Package, PackagePlus, Upload, X } from "lucide-react";
+import { Edit, Package, PackagePlus, Trash2, Upload, X } from "lucide-react";
 import "./ProductsTab.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../../../@/Components/ui/alert-dialog";
 
 const ProductsTab = () => {
 
@@ -38,6 +39,9 @@ const ProductsTab = () => {
       });
   },[])
 
+  const refreshPage = () => {
+    navigate(0); // React-router way to refresh current route
+  };
 
   const [products, setProducts] = useState([]);
 
@@ -76,23 +80,38 @@ const ProductsTab = () => {
     }
   };
 
-  const handleAddProduct = (e) => {
-    e.preventDefault();
-    axios
-      .post('http://localhost:3001/admin/products', {setFormData})
-      .then((result) => {
-        console.log(result);
-        toast.success('Product added Successfully');
-        setFormDisabled(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error('Something went wrong. Please try again later.');
-      });
-    setProducts([...products, newProduct]);
+const handleAddProduct = async (e) => {
+  e.preventDefault();
+
+  const formDataToSend = new FormData();
+  formDataToSend.append("name", formData.name);
+  formDataToSend.append("price", formData.price);
+  formDataToSend.append("size", formData.size);
+  formDataToSend.append("description", formData.description);
+  formDataToSend.append("stock", formData.stock);
+
+  // Append each image file individually
+  formData.images.forEach((file) => {
+    formDataToSend.append("images", file); // key: 'images'
+  });
+
+  try {
+    const response = await axios.post("http://localhost:3001/admin/products", formDataToSend, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    console.log("Uploaded:", response.data);
+    toast.success("Product added successfully");
     setIsAddDialogOpen(false);
     resetForm();
-  };
+    refreshPage();
+  } catch (err) {
+    console.error("Upload Error:", err);
+    toast.error("Upload failed");
+  }
+};
 
   const resetForm = () => {
     setFormData({ name: "", price: 0, size: "", description: "", stock: 0, images: [] });
@@ -106,16 +125,10 @@ const ProductsTab = () => {
 
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files);
-    files.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setFormData(prev => ({
-          ...prev,
-          images: [...prev.images, e.target.result]
-        }));
-      };
-      reader.readAsDataURL(file);
-    });
+    setFormData((prev) => ({
+      ...prev,
+      images: [...prev.images, ...files], // <-- store File objects
+    }));
   };
 
   const removeImage = (indexToRemove) => {
@@ -131,41 +144,21 @@ const ProductsTab = () => {
     return words.slice(0, maxWords).join(' ') + '...';
   };
 
-  const ImageUploadSection = () => (
-    <div className="image-upload-section">
-      <Label>Product Images</Label>
-      <div className="image-upload-container">
-        <div className="image-grid">
-          {formData.images.map((image, index) => (
-            <div key={index} className="image-preview">
-              <img src={image} alt={`Product ${index + 1}`} className="preview-image" />
-              <button
-                type="button"
-                onClick={() => removeImage(index)}
-                className="remove-image-btn"
-              >
-              <X className="remove-icon" />
-              </button>
-            </div>
-          ))}
-        </div>
-        <div className="upload-area">
-          <Input
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleImageUpload}
-            className="file-input"
-            id="image-upload"
-          />
-          <Label htmlFor="image-upload" className="upload-label">
-            <Upload className="upload-icon" />
-            Upload Images
-          </Label>
-        </div>
-      </div>
-    </div>
-  );
+  const handleDelete = (id) => {
+    axios.delete(`http://localhost:3001/admin/products/${id}`)
+      .then(res => {
+        if (res.data.success) {
+          // Remove deleted admin from state
+          toast.success('Product Deleted!');
+          setProducts(prev => prev);
+          refreshPage();
+        }
+      })
+      .catch(err => {
+        console.error("Error deleting Product", err);
+        toast.error('Something went wrong. Please try again later.');
+      });
+  };
   
   return (
     <div className="products-tab">
@@ -200,7 +193,7 @@ const ProductsTab = () => {
                 </div>
                 <div className="price-size-grid">
                   <div>
-                    <Label htmlFor="add-price">Price ($)</Label>
+                    <Label htmlFor="add-price">Price &#8377;</Label>
                     <Input
                       id="add-price"
                       type="number"
@@ -211,12 +204,12 @@ const ProductsTab = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="add-size">Size</Label>
+                    <Label htmlFor="add-size">Size (mg)</Label>
                     <Input
                       id="add-size"
                       value={formData.size}
                       onChange={(e) => setFormData({ ...formData, size: e.target.value })}
-                      placeholder="S, M, L, etc."
+                      placeholder="250, 500, 750, etc."
                     />
                   </div>
                 </div>
@@ -240,7 +233,18 @@ const ProductsTab = () => {
                     rows={3}
                   />
                 </div>
-                <ImageUploadSection />
+                {/* <ImageUploadSection /> */}
+                <div className="image-upload-section">
+                  <Label>Upload Product Images</Label>
+                  <Input
+                    className="image-upload-input"
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={(e) => setFormData({ ...formData, images: Array.from(e.target.files) })}
+                  />
+                </div>
+                
                 <div className="dialog-actions">
                   <Button onClick={handleAddProduct} className="add-product-btn">
                     Add Product
@@ -272,7 +276,7 @@ const ProductsTab = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="edit-price">Price ($)</Label>
+                <Label htmlFor="edit-price">Price &#8377;</Label>
                 <Input
                   id="edit-price"
                   type="number"
@@ -312,7 +316,17 @@ const ProductsTab = () => {
                 rows={3}
               />
             </div>
-            <ImageUploadSection />
+            {/* <ImageUploadSection /> */}
+            <div className="image-upload-section">
+                  <Label>Upload Product Images</Label>
+                  <Input
+                    className="image-upload-input"
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={(e) => setFormData({ ...formData, images: Array.from(e.target.files) })}
+                  />
+                </div>
             <div className="edit-actions">
               <Button onClick={handleSave} className="save-button">
                 Save Changes
@@ -348,7 +362,7 @@ const ProductsTab = () => {
                       </div>
                     </td>
                     <td className="table-td"> &#8377; {product.price.toFixed(2)}</td>
-                    <td className="table-td">{product.size} mg</td>
+                    <td className="table-td">{product.size} g</td>
                     <td className="table-td">
                       <span className={`stock-badge ${
                         product.stock > 20 ? 'stock-high' :
@@ -358,7 +372,7 @@ const ProductsTab = () => {
                         {product.stock} units
                       </span>
                     </td>
-                    <td className="table-td">
+                    <td className="table-td" id="double-action">
                       <Button
                         onClick={() => handleEdit(product)}
                         size="sm"
@@ -368,6 +382,31 @@ const ProductsTab = () => {
                         <Edit className="edit-icon" />
                         Edit
                       </Button>
+
+                      <AlertDialog >
+                        <AlertDialogTrigger asChild>
+                          <Button
+                            
+                            size="sm"
+                            variant="outline"
+                            className="delete-btn"
+                          >
+                            <Trash2 color="red" className="edit-icon" />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent className="alert-box">
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              This action cannot be undone. This will permanently delete the your data from our servers.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => handleDelete(product._id)}>Continue</AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
                     </td>
                   </tr>
                 ))}
