@@ -47,6 +47,11 @@
   text-align: center;
 }
 
+.order-item img{
+  width:90px;
+  height: 100px;
+}
+
 .order-number {
   text-align: center;
   padding: calc(var(--spacing) * 2);
@@ -88,12 +93,12 @@
   border-bottom: none;
 }
 
-.item-image {
+/* .item-image {
   width: 80px;
   height: 80px;
   object-fit: cover;
   border-radius: calc(var(--spacing) * 1);
-}
+} */
 
 .item-details {
   flex: 1;

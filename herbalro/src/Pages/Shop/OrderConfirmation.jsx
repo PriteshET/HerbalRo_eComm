@@ -52,11 +52,16 @@ const OrderConfirmation = () => {
           <div className="items-list">
             {orderDetails.items.map(item => (
               <div key={item.id} className="order-item">
-                <img src={item.image} alt={item.name} className="item-image" />
+                {/* <img src={item.image} alt={item.name} className="item-image" /> */}
+                <img
+                src={`http://localhost:3001${item.images}`} // note: it's product.images[0]
+                alt={item.name}
+                className="item-image"
+              />
                 <div className="item-details">
                   <h4>{item.name}</h4>
                   <p>Quantity: {item.quantity}</p>
-                  <p className="item-price">${(item.price * item.quantity).toFixed(2)}</p>
+                  <p className="item-price">₹{(item.price * item.quantity).toFixed(2)}</p>
                 </div>
               </div>
             ))}
@@ -65,7 +70,7 @@ const OrderConfirmation = () => {
           <div className="order-total">
             <div className="total-row">
               <span>Subtotal:</span>
-              <span>${orderDetails.total.toFixed(2)}</span>
+              <span>₹{orderDetails.total.toFixed(2)}</span>
             </div>
             <div className="total-row">
               <span>Shipping:</span>
@@ -73,7 +78,7 @@ const OrderConfirmation = () => {
             </div>
             <div className="total-row final-total">
               <span>Total:</span>
-              <span>${orderDetails.total.toFixed(2)}</span>
+              <span>₹{orderDetails.total.toFixed(2)}</span>
             </div>
           </div>
         </div>

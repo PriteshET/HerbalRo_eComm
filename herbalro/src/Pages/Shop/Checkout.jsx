@@ -244,7 +244,12 @@ const Checkout = () => {
           <div className="summary-items">
             {cart.items.map(item => (
               <div key={item.id} className="summary-item">
-                <img src={item.image} alt={item.name} className="summary-item-image" />
+                {/* <img src={item.image} alt={item.name} className="summary-item-image" /> */}
+                <img
+                src={`http://localhost:3001${item.images}`} // note: it's product.images[0]
+                alt={item.name}
+                className="summary-item-image"
+              />
                 <div className="summary-item-details">
                   <h4>{item.name}</h4>
                   <p>Qty: {item.quantity}</p>

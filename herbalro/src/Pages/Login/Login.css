@@ -21,6 +21,11 @@
     text-align: center;
 }
 
+.login-container button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .login-container h1 {
     margin-bottom: 10px;
     color: #2e6d04;

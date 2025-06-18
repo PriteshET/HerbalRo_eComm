@@ -125,9 +125,9 @@
 }
 
 .summary-item-image {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
+  width: 90px;
+  height: 100px;
+  /* object-fit: cover; */
   border-radius: calc(var(--spacing) * 1);
 }
 
