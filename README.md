@@ -55,17 +55,17 @@ npm run dev
 
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file
+To run this project, you will need to add the following environment variables to your .env.local file
 
-MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
+MONGODB_URL=your_mongodb_url
+jwt_secretKey=your_jwt_secret
 
 ---
 
 ## Status
 - Completed core features
 - Actively testing and refining
-- Future plans: payment integration, shop page
+- Future plans: Payment Integration
 
 --- 
 
