@@ -35,7 +35,7 @@ app.use(cookieParser())
 
 app.use('/uploads', express.static('uploads'));
 
-mongoose.connect("mongodb://localhost:27017/Herbalro")
+mongoose.connect(process.env.MongoDB_URL)
 
 const verifyUser = (req,res,next) => {
     const token = req.cookies.token;
