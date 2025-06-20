@@ -7,6 +7,9 @@ const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser') 
 const multer = require('multer');
 
+require('dotenv').config({ path: '.env.local' });
+
+
 // Store in /uploads/products
 const storage = multer.diskStorage({
   destination: function(req, file, cb){
@@ -39,7 +42,7 @@ const verifyUser = (req,res,next) => {
     if(!token){
         res.json("The Token was not Available")
     }else{
-        jwt.verify(token,"jwt-secretKey",(err, decoded) => {
+        jwt.verify(token, process.env.jwt_secretKey,(err, decoded) => {
             if (err){
                 res.json("Token is Wrong")
             }
@@ -56,7 +59,7 @@ const verifyAdmin = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, "jwt-secretKey");
+    const decoded = jwt.verify(token, process.env.jwt_secretKey);
 
     // Check if role is admin, adjust based on your token payload
     if (decoded.role !== "admin") {
@@ -80,7 +83,7 @@ const verifyModeratorOrAdmin = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, "jwt-secretKey");
+    const decoded = jwt.verify(token, process.env.jwt_secretKey);
     if (decoded.role !== "admin" && decoded.role !== "moderator") {
       return res.status(403).json({ success: false, message: 'Access Denied: Not authorized' });
     }
@@ -92,7 +95,7 @@ const verifyModeratorOrAdmin = (req, res, next) => {
 };
 
 
-app.get('/',verifyUser, (req,res) =>{
+app.get('/shop',verifyUser, (req,res) =>{
     return res.json("Success")
 })
 

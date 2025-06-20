@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CardContext';
 import './ProductList.css';
 // import { products } from '../../ProductData/products';
@@ -20,6 +20,18 @@ const ProductList = () => {
         console.error("Error fetching products:", err);
       });
   }, []);
+
+  
+  axios.defaults.withCredentials = true;
+    const navigate = useNavigate();
+    useEffect(()=>{
+      axios.get('http://localhost:3001/shop')
+      .then(result => {console.log(result)
+        if(result.data !== "Success"){
+          navigate('/login')
+        }
+      })
+    },[])
 
 
 

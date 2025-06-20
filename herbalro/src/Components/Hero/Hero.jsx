@@ -6,16 +6,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 export const Hero = () => {
-  axios.defaults.withCredentials = true;
-  const navigate = useNavigate();
-  useEffect(()=>{
-    axios.get('http://localhost:3001/')
-    .then(result => {console.log(result)
-      if(result.data !== "Success"){
-        navigate('/login')
-      }
-    })
-  },[])
+  
   return (
     <div className='hero'>
         <div className="hero-text">
