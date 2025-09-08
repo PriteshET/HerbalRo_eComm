@@ -62,8 +62,22 @@ To run this project, you will need to add the following environment variables to
 
 ---
 ##  Screenshots
-<img width="1366" height="768" alt="home" src="https://github.com/user-attachments/assets/8653f657-4fdf-4187-bbc0-8508db4f4799" />
 
+**Here is a preview of the application:**
+
+<p float="left">
+  <img width="45%" alt="home" src="https://github.com/user-attachments/assets/d7ddc689-dba8-49bf-9696-1fbe96e6e44a" />
+  <img width="45%" alt="feedback" src="https://github.com/user-attachments/assets/403b60a8-788c-4d71-8424-2fe53f9045be" />
+</p>
+
+**Admin/Moderator Page:**
+
+<p float="left">
+  ![Admin](https://github.com/user-attachments/assets/34a186d7-da36-4a4f-a5f7-de8e7a7d34af)
+  ![Moderator](https://github.com/user-attachments/assets/bea6f8ab-a902-4893-824b-13de85ce98ef)
+  <img width="45%" alt="product" src="https://github.com/user-attachments/assets/08ab8a56-18ca-468f-aa53-8db6724698e5" />
+  <img width="45%" alt="adminfeedback" src="https://github.com/user-attachments/assets/1a506fbe-ec4a-4604-b372-53eb4463cc01" />
+</p>
 
 ---
 ## Status
