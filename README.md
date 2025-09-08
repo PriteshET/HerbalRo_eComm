@@ -57,11 +57,15 @@ npm run dev
 
 To run this project, you will need to add the following environment variables to your .env.local file
 
-MONGODB_URL=your_mongodb_url
-jwt_secretKey=your_jwt_secret
+- MONGODB_URL = your_mongodb_url
+- jwt_secretKey = your_jwt_secret
 
 ---
+##  Screenshots
+<img width="1366" height="768" alt="home" src="https://github.com/user-attachments/assets/8653f657-4fdf-4187-bbc0-8508db4f4799" />
 
+
+---
 ## Status
 - Completed core features
 - Actively testing and refining
