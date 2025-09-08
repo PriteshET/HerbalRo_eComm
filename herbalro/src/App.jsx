@@ -49,7 +49,7 @@ const App = () => {
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/login' element={<Login/>}/>
 
-      {/* ✅ Admin Layout Route with Nested Tabs */}
+      {/* Admin Layout Route with Nested Tabs */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<UsersTab />} /> {/* default tab: users */}
           <Route path="products" element={<ProductsTab />} />
