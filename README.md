@@ -73,10 +73,28 @@ To run this project, you will need to add the following environment variables to
 **Admin/Moderator Page:**
 
 <p float="left">
-  ![Admin](https://github.com/user-attachments/assets/34a186d7-da36-4a4f-a5f7-de8e7a7d34af)
-  ![Moderator](https://github.com/user-attachments/assets/bea6f8ab-a902-4893-824b-13de85ce98ef)
+  
+  Admin Login:
+
+  <img src="./ss/Admin.gif" width="50%" />
+
+  
+  Moderator Login:
+  
+  <img src="./ss/moderator.gif" width="50%" />
+
+  
   <img width="45%" alt="product" src="https://github.com/user-attachments/assets/08ab8a56-18ca-468f-aa53-8db6724698e5" />
   <img width="45%" alt="adminfeedback" src="https://github.com/user-attachments/assets/1a506fbe-ec4a-4604-b372-53eb4463cc01" />
+</p>
+
+**Shop Page:**
+
+<p float="left">
+  <img width="45%" alt="Shop" src="./ss/shop.png"/>
+  <img width="45%" alt="Details" src="./ss/details.png"/>
+  <img width="45%" alt="Cart" src="./ss/cart.png"/>
+  <img width="45%" alt="Checkout" src="./ss/checkout.png"/>
 </p>
 
 ---
